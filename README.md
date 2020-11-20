@@ -1,22 +1,25 @@
-tower_populator
+# tower_populator
 
-The purpose of this project is to populate an Ansible Tower installation from a configuration file.
-Requirements
+The purpose of this project is to populate an Ansible Tower installation from a configuration file.  
 
-pip install ansible-tower-cli 
+## Requirements
 
-current version requires installation from tower-cli issue-9-unstable branch for dynamic group support
+	pip install ansible-tower-cli 
+	
+**current version requires installation from tower-cli issue-9-unstable branch for dynamic group support**
 
-make sure you have ~/.tower_cli.cfg configured with something like:
+make sure you have ```~/.tower_cli.cfg``` configured with something like:
 
-host: 10.42.0.200
-username: admin
-password: password
 
-Usage
+	host: 10.42.0.200
+	username: admin
+	password: password
 
-Usage is simple. Declare the options you want in config.yml, and run the script:
+## Usage 
+ 
+Usage is simple.  Declare the options you want in [config.yml](config.yml), and run the script:
 
+```
 ./tower_populator config.yml
 
 Creating Organization
@@ -61,3 +64,10 @@ Creating Job Templates
 
 {'name': 'Apache', 'verbosity': 0, 'job_type': 'run', 'project': 'Hyrulian Playbooks', 'inventory': 'Production', 'forks': 7, 'machine_credential': 'Local SSH', 'playbook': 'apache.yml', 'description': 'Confgure Apache servers'}
 {'name': 'Graphite', 'verbosity': 2, 'job_type': 'run', 'project': 'Hyrulian Playbooks', 'inventory': 'Production', 'machine_credential': 'Local SSH', 'playbook': 'graphite.yml', 'description': 'Confgure Graphite servers'}
+```
+
+## Gotchas
+
+tower-cli doesn't do everything the Tower UI does (yet), so there are some limitations:
+
+1. All credential types use ```username``` and ```password``` as options, even AWS, Rackspace, etc.  This is a [known issue](https://github.com/ansible/tower-cli/issues/13).
